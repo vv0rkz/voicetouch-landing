@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>VoiceTouch — управляй телефоном голосом, офлайн, на русском</title>
+  <meta name="description" content="VoiceTouch — Android-приложение: управляй любым приложением голосом на естественном русском, полностью офлайн. Для людей с моторными ограничениями и не только." />
+  <meta property="og:title" content="VoiceTouch — свобода говорить, свобода управлять" />
+  <meta property="og:description" content="Управляй любым приложением голосом. Без интернета. На русском." />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: { extend: {
+        colors: { brand: { DEFAULT: '#6366f1' } },
+        fontFamily: { sans: ['system-ui','Segoe UI','Roboto','sans-serif'] }
+      } }
+    };
+  </script>
+  <!-- Яндекс Метрика. Единственное место правки: вписать номер счётчика вместо null -->
+  <script>
+    window.METRIKA_ID = null; // ← номер счётчика Яндекс Метрики (8 цифр), напр. 12345678
+    if (window.METRIKA_ID) {
+      (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+      m[i].l=1*new Date();
+      for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+      k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+      (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+      ym(window.METRIKA_ID, "init", { clickmap:true, trackLinks:true, accurateTrackBounce:true, webvisor:true, trackForms:true });
+    }
+  </script>
+  <script src="utm.js" defer></script>
+  <style>
+    :root { color-scheme: dark; }
+    body { background:#09090b; }
+    .glow { background: radial-gradient(circle, rgba(99,102,241,.18) 0%, rgba(99,102,241,.06) 45%, transparent 70%); }
+  </style>
+</head>
+<body class="text-zinc-100 antialiased">
+
+  <!-- Header -->
+  <header class="fixed top-0 inset-x-0 z-50 px-6 py-5 flex justify-between items-center backdrop-blur-md bg-black/20 border-b border-white/5">
+    <div class="font-semibold text-lg tracking-tight">VoiceTouch</div>
+    <a href="#lead" class="text-sm font-medium px-4 py-2 rounded-full border border-white/10 hover:border-brand/60 transition-colors">Ранний доступ</a>
+  </header>
+
+  <!-- Hero -->
+  <section class="relative pt-36 pb-24 md:pt-48 md:pb-32 px-6 flex flex-col items-center text-center overflow-hidden">
+    <div class="glow pointer-events-none absolute left-1/2 -translate-x-1/2 top-1/3 -translate-y-1/2 w-[600px] h-[600px] rounded-full"></div>
+    <div class="max-w-4xl mx-auto z-10">
+      <h1 class="text-5xl md:text-7xl font-bold tracking-tighter leading-tight mb-6">
+        <span class="block text-zinc-100">Свобода говорить.</span>
+        <span class="block text-zinc-500">Свобода управлять.</span>
+      </h1>
+      <p class="text-lg md:text-xl text-zinc-400 max-w-2xl mx-auto mb-10 leading-relaxed">
+        Управляйте любым приложением голосом. Без интернета. На русском.
+      </p>
+      <img src="voicetouch_logo.png" alt="VoiceTouch" class="w-[220px] md:w-[320px] object-contain mx-auto mb-10 select-none" draggable="false" />
+      <div class="flex flex-col sm:flex-row gap-3 justify-center">
+        <a href="#lead" class="inline-flex items-center justify-center rounded-full px-8 py-4 text-base font-medium bg-brand text-white hover:bg-brand/90 transition-all hover:scale-105 shadow-[0_0_40px_-10px_#6366f1]">Получить ранний доступ</a>
+        <a href="#how" class="inline-flex items-center justify-center rounded-full px-8 py-4 text-base font-medium border border-white/15 hover:border-white/40 transition-colors">Как это работает</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="py-24 px-6 bg-zinc-950/60 border-y border-white/5">
+    <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="p-8 rounded-3xl bg-zinc-900/40 border border-white/5">
+        <h3 class="text-xl font-semibold mb-3">Говорите свободно</h3>
+        <p class="text-zinc-400 leading-relaxed">Без команд вроде «tap 7» — просто скажите, что нужно.</p>
+      </div>
+      <div class="p-8 rounded-3xl bg-zinc-900/40 border border-white/5">
+        <h3 class="text-xl font-semibold mb-3">Делает за вас</h3>
+        <p class="text-zinc-400 leading-relaxed">Сам находит нужные кнопки и выполняет действия поверх любого приложения.</p>
+      </div>
+      <div class="p-8 rounded-3xl bg-zinc-900/40 border border-white/5">
+        <h3 class="text-xl font-semibold mb-3">Работает офлайн</h3>
+        <p class="text-zinc-400 leading-relaxed">Все модели — на устройстве. Ваш голос остаётся у вас, данные не уходят на сервер.</p>
+      </div>
+      <div class="p-8 rounded-3xl bg-zinc-900/40 border border-white/5">
+        <h3 class="text-xl font-semibold mb-3">Понимает вас</h3>
+        <p class="text-zinc-400 leading-relaxed">Русский и английский из коробки.</p>
+      </div>
+      <div class="p-8 rounded-3xl bg-zinc-900/40 border border-white/5">
+        <h3 class="text-xl font-semibold mb-3">Даёт независимость</h3>
+        <p class="text-zinc-400 leading-relaxed">Телефон снова под вашим контролем — без помощи со стороны.</p>
+      </div>
+      <div class="p-8 rounded-3xl bg-zinc-900/40 border border-white/5">
+        <h3 class="text-xl font-semibold mb-3">Для тех, кому трудно касаться</h3>
+        <p class="text-zinc-400 leading-relaxed">Тремор, артрит, последствия инсульта, занятые руки — экран больше не барьер.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <section id="how" class="py-28 px-6">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-8">Как это работает</h2>
+      <div class="inline-flex items-center gap-3 px-6 py-4 rounded-2xl bg-zinc-900/80 border border-white/10 mb-8">
+        <span class="text-lg font-medium text-zinc-200">«Отправь маме, что я задержусь»</span>
+      </div>
+      <ol class="space-y-5 border-t border-white/10 pt-8">
+        <li class="flex items-center gap-4"><span class="w-8 h-8 rounded-full bg-zinc-800 flex items-center justify-center text-sm border border-white/10">1</span><span class="text-zinc-300">Открывает сообщения</span></li>
+        <li class="flex items-center gap-4"><span class="w-8 h-8 rounded-full bg-zinc-800 flex items-center justify-center text-sm border border-white/10">2</span><span class="text-zinc-300">Набирает текст</span></li>
+        <li class="flex items-center gap-4"><span class="w-8 h-8 rounded-full bg-zinc-800 flex items-center justify-center text-sm border border-white/10">3</span><span class="text-zinc-300">Сообщение отправлено</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- Lead form (fake-door — тест покупательского интереса, H8) -->
+  <section id="lead" class="py-28 px-6 bg-zinc-950/60 border-y border-white/5">
+    <div class="max-w-xl mx-auto text-center">
+      <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-4">Ранний доступ</h2>
+      <p class="text-zinc-400 mb-8">Оставьте контакт — напишем, когда откроем доступ. Расскажите, что для вас важнее всего.</p>
+      <form action="https://formspree.io/f/xkolyroy" method="POST" class="text-left space-y-4">
+        <input type="hidden" name="market" value="ru" />
+        <input type="hidden" name="utm_source" />
+        <input type="hidden" name="utm_medium" />
+        <input type="hidden" name="utm_campaign" />
+        <input type="hidden" name="utm_content" />
+        <label class="block">
+          <span class="text-sm text-zinc-400">Как к вам обращаться</span>
+          <input type="text" name="name" placeholder="Имя" class="mt-1 w-full rounded-xl bg-zinc-900/80 border border-white/10 px-4 py-3 text-zinc-100 placeholder-zinc-600 focus:border-brand/60 focus:outline-none" />
+        </label>
+        <label class="block">
+          <span class="text-sm text-zinc-400">Куда написать (Telegram / WhatsApp / email)</span>
+          <input type="text" name="contact" required placeholder="@username или email" class="mt-1 w-full rounded-xl bg-zinc-900/80 border border-white/10 px-4 py-3 text-zinc-100 placeholder-zinc-600 focus:border-brand/60 focus:outline-none" />
+        </label>
+        <label class="block">
+          <span class="text-sm text-zinc-400">Что для вас важнее всего?</span>
+          <select name="priority" class="mt-1 w-full rounded-xl bg-zinc-900/80 border border-white/10 px-4 py-3 text-zinc-100 focus:border-brand/60 focus:outline-none">
+            <option value="">— выберите —</option>
+            <option value="offline_privacy">Работает офлайн, данные не уходят с телефона</option>
+            <option value="russian">Понимает естественный русский</option>
+            <option value="reliability">Точность и надёжность команд</option>
+            <option value="for_relative">Хочу настроить для близкого человека</option>
+            <option value="other">Другое</option>
+          </select>
+        </label>
+        <button type="submit" class="w-full inline-flex items-center justify-center rounded-full px-8 py-4 text-base font-medium bg-brand text-white hover:bg-brand/90 transition-all shadow-[0_0_40px_-10px_#6366f1]">Получить ранний доступ</button>
+      </form>
+      <p class="mt-4 text-xs text-zinc-500">Оставляя контакт, вы соглашаетесь на обработку для связи по заявке (152-ФЗ).</p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-12 px-6 text-center md:text-left">
+    <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 text-sm text-zinc-500">
+      <div class="font-medium">© 2026 VoiceTouch</div>
+      <div class="flex items-center gap-6">
+        <a href="#" class="hover:text-zinc-300 transition-colors">Конфиденциальность</a>
+        <a href="#" class="hover:text-zinc-300 transition-colors">Условия</a>
+        <a href="#lead" class="hover:text-zinc-300 transition-colors">Связаться</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
