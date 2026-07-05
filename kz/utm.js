@@ -28,10 +28,25 @@
       });
     });
 
+    // AJAX-отправка: цель успевает долететь, юзер видит «Спасибо» на русском вместо страницы Formspree
     const form = document.querySelector('form[action*="formspree"]');
     if (form) {
-      form.addEventListener('submit', function () {
-        goal('lead_submit');
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        const btn = form.querySelector('button[type="submit"]');
+        if (btn) { btn.disabled = true; btn.textContent = 'Отправляем…'; }
+        fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { Accept: 'application/json' }
+        }).then(function (r) {
+          if (!r.ok) throw new Error('formspree ' + r.status);
+          goal('lead_submit');
+          form.innerHTML = '<p class="text-lg text-zinc-100 font-medium text-center py-10">Спасибо! Заявка получена.<br><span class="text-zinc-400 text-base">Напишем, когда откроем доступ.</span></p>';
+        }).catch(function () {
+          if (btn) { btn.disabled = false; btn.textContent = 'Получить ранний доступ'; }
+          alert('Не получилось отправить заявку. Попробуйте ещё раз чуть позже.');
+        });
       });
     }
 
