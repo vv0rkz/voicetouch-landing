@@ -28,6 +28,16 @@
       });
     });
 
+    // A/B цены: utm_content=price → показать блок цены; иначе скрыт (безопасный дефолт).
+    // Вариант пишется в скрытое поле price_shown → виден в заявке Formspree; в аналитике сегментируется по utm_content.
+    const priceVariant = (saved.utm_content || '').toLowerCase() === 'price' ? 'price' : 'noprice';
+    if (priceVariant === 'price') {
+      const pb = document.getElementById('price-block');
+      if (pb) pb.classList.remove('hidden');
+    }
+    const psField = document.querySelector('input[name="price_shown"]');
+    if (psField) psField.value = priceVariant;
+
     // AJAX-отправка: цель успевает долететь, юзер видит «Спасибо» на русском вместо страницы Formspree
     const form = document.querySelector('form[action*="formspree"]');
     if (form) {

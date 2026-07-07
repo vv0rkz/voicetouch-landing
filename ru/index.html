@@ -35,9 +35,14 @@
     .glow { background: radial-gradient(circle, rgba(99,102,241,.18) 0%, rgba(99,102,241,.06) 45%, transparent 70%); }
 
     /* --- channel selector --- */
-    .channel-btn { width:44px; height:44px; display:flex; align-items:center; justify-content:center; border-radius:10px; color:#a1a1aa; transition:background-color .15s, color .15s; }
+    .channel-btn { min-width:44px; height:44px; display:flex; align-items:center; justify-content:center; gap:6px; padding:0 11px; border-radius:10px; color:#a1a1aa; font-size:13px; font-weight:500; white-space:nowrap; transition:background-color .15s, color .15s; }
     .channel-btn:hover { color:#e4e4e7; }
-    .channel-btn.active { background:#6366f1; color:#fff; }
+    .channel-label { display:none; }
+    .channel-btn.active { color:#fff; }
+    .channel-btn.active .channel-label { display:inline; }
+    .channel-btn.active[data-color="tg"] { background:#229ED9; }
+    .channel-btn.active[data-color="wa"] { background:#25D366; }
+    .channel-btn.active[data-color="mail"] { background:#6366f1; }
 
     /* --- animated phone demo --- */
     .phone { width:256px; height:520px; border-radius:44px; background:#0b0b0f; border:1px solid rgba(255,255,255,.12);
@@ -190,8 +195,15 @@
     <div class="max-w-xl mx-auto text-center">
       <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-4">Ранний доступ</h2>
       <p class="text-zinc-400 mb-8">Оставьте контакт — напишем, когда откроем доступ. Расскажите, что для вас важнее всего.</p>
+      <!-- Price block (A/B): показывается только при utm_content=price (см. utm.js) -->
+      <div id="price-block" class="hidden mb-8 rounded-2xl border border-white/10 bg-zinc-900/50 p-5">
+        <div class="text-sm text-zinc-400">После запуска</div>
+        <div class="mt-1 text-2xl font-bold text-zinc-100">249&nbsp;₽<span class="text-base font-normal text-zinc-500">/мес</span> <span class="text-zinc-600">·</span> 1990&nbsp;₽<span class="text-base font-normal text-zinc-500">/год</span></div>
+        <div class="mt-3 inline-flex items-center gap-2 text-sm text-emerald-400"><span aria-hidden="true">★</span><span>Ранним пользователям — бесплатный доступ на старте и скидка навсегда</span></div>
+      </div>
       <form action="https://formspree.io/f/xkolyroy" method="POST" class="text-left space-y-4">
         <input type="hidden" name="market" value="ru" />
+        <input type="hidden" name="price_shown" value="noprice" />
         <input type="hidden" name="utm_source" />
         <input type="hidden" name="utm_medium" />
         <input type="hidden" name="utm_campaign" />
@@ -202,16 +214,19 @@
         </label>
         <div class="block">
           <span class="text-sm text-zinc-400">Куда написать</span>
-          <div class="mt-1 flex gap-2">
+          <div class="mt-1 flex flex-col sm:flex-row gap-2">
             <div class="flex shrink-0 gap-1 rounded-xl bg-zinc-900/80 border border-white/10 p-1" id="channel-group">
-              <button type="button" class="channel-btn" data-channel="telegram" data-ph="@username" data-mode="text" aria-label="Telegram">
-                <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z"/></svg>
+              <button type="button" class="channel-btn" data-channel="telegram" data-ph="@username" data-mode="text" data-color="tg" aria-label="Telegram">
+                <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 shrink-0"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z"/></svg>
+                <span class="channel-label">Telegram</span>
               </button>
-              <button type="button" class="channel-btn" data-channel="whatsapp" data-ph="+7 900 000-00-00" data-mode="tel" aria-label="WhatsApp">
-                <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.07 2.87 1.22 3.07.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.62.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35zM12.05 21.5h-.01a9.5 9.5 0 0 1-4.84-1.33l-.35-.2-3.6.94.96-3.51-.23-.36a9.46 9.46 0 0 1-1.45-5.05c0-5.24 4.27-9.5 9.52-9.5 2.54 0 4.93.99 6.73 2.79a9.45 9.45 0 0 1 2.78 6.72c0 5.24-4.27 9.5-9.52 9.5z"/></svg>
+              <button type="button" class="channel-btn" data-channel="whatsapp" data-ph="+7 900 000-00-00" data-mode="tel" data-color="wa" aria-label="WhatsApp">
+                <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 shrink-0"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.07 2.87 1.22 3.07.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.62.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35zM12.05 21.5h-.01a9.5 9.5 0 0 1-4.84-1.33l-.35-.2-3.6.94.96-3.51-.23-.36a9.46 9.46 0 0 1-1.45-5.05c0-5.24 4.27-9.5 9.52-9.5 2.54 0 4.93.99 6.73 2.79a9.45 9.45 0 0 1 2.78 6.72c0 5.24-4.27 9.5-9.52 9.5z"/></svg>
+                <span class="channel-label">WhatsApp</span>
               </button>
-              <button type="button" class="channel-btn" data-channel="email" data-ph="you@example.com" data-mode="email" aria-label="Email">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+              <button type="button" class="channel-btn" data-channel="email" data-ph="you@example.com" data-mode="email" data-color="mail" aria-label="Почта">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5 shrink-0"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+                <span class="channel-label">Почта</span>
               </button>
             </div>
             <input type="text" name="contact" required placeholder="@username" inputmode="text" class="flex-1 min-w-0 rounded-xl bg-zinc-900/80 border border-white/10 px-4 py-3 text-zinc-100 placeholder-zinc-600 focus:border-brand/60 focus:outline-none" />
