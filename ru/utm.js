@@ -14,10 +14,12 @@
     sessionStorage.setItem('validation_utm', JSON.stringify(utm));
   }
 
-  function goal(name) {
-    if (window.METRIKA_ID && window.ym) ym(window.METRIKA_ID, 'reachGoal', name);
-    if (window.gtag) gtag('event', name);
-    if (window.posthog) posthog.capture(name);
+  // Событие-цель во все счётчики сразу, с необязательными свойствами (для сегментации).
+  function goal(name, props) {
+    props = props || {};
+    if (window.METRIKA_ID && window.ym) ym(window.METRIKA_ID, 'reachGoal', name, props);
+    if (window.gtag) gtag('event', name, props);
+    if (window.posthog) posthog.capture(name, props);
   }
 
   // Маска телефона RU/KZ (обе страны +7): любой ввод → +7 (XXX) XXX-XX-XX.
@@ -88,6 +90,13 @@
     const psField = document.querySelector('input[name="price_shown"]');
     if (psField) psField.value = priceVariant;
 
+    // Ключевые свойства сегментации: приклеиваются ко ВСЕМ событиям (вкл. вход/pageview) →
+    // «как зашли на сайт» и «сабмит формы» можно резать по цене/каналу/источнику.
+    const market = (document.querySelector('input[name="market"]') || {}).value || '';
+    const entryProps = { price_shown: priceVariant, market: market, entry_utm_source: saved.utm_source || '', entry_utm_content: saved.utm_content || '' };
+    if (window.posthog) posthog.register(entryProps);
+    if (window.gtag) gtag('set', 'user_properties', { price_shown: priceVariant, market: market });
+
     const input = document.querySelector('input[name="contact"]');
     const channelField = document.querySelector('input[name="channel"]');
     const linkField = document.querySelector('input[name="contact_link"]');
@@ -118,7 +127,7 @@
           headers: { Accept: 'application/json' }
         }).then(function (r) {
           if (!r.ok) throw new Error('formspree ' + r.status);
-          goal('lead_submit');
+          goal('lead_submit', { price_shown: priceVariant, channel: channel, market: market, utm_source: saved.utm_source || '', utm_content: saved.utm_content || '' });
           form.innerHTML = '<p class="text-lg text-zinc-100 font-medium text-center py-10">Спасибо! Заявка получена.<br><span class="text-zinc-400 text-base">Напишем, когда откроем доступ.</span></p>';
         }).catch(function () {
           if (btn) { btn.disabled = false; btn.textContent = 'Получить ранний доступ'; }
