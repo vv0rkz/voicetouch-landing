@@ -17,6 +17,7 @@
   function goal(name) {
     if (window.METRIKA_ID && window.ym) ym(window.METRIKA_ID, 'reachGoal', name);
     if (window.gtag) gtag('event', name);
+    if (window.posthog) posthog.capture(name);
   }
 
   // Маска телефона RU/KZ (обе страны +7): любой ввод → +7 (XXX) XXX-XX-XX.
