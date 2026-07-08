@@ -78,9 +78,10 @@
       });
     });
 
-    // A/B цены: по умолчанию цена ПОКАЗАНА (базовая версия); скрывается только при utm_content=noprice.
+    // A/B цены: по умолчанию цена ПОКАЗАНА (базовая версия); скрывается только при utm_content=noprice
+    // в ТЕКУЩЕМ URL (не из sessionStorage — иначе прошлый noprice-визит «прилипал» бы к базовым заходам).
     // Вариант пишется в скрытое поле price_shown → виден в заявке; в аналитике сегментируется по utm_content.
-    const priceVariant = (saved.utm_content || '').toLowerCase() === 'noprice' ? 'noprice' : 'price';
+    const priceVariant = (params.get('utm_content') || '').toLowerCase() === 'noprice' ? 'noprice' : 'price';
     const pb = document.getElementById('price-block');
     if (pb && priceVariant === 'noprice') pb.classList.add('hidden');
     const psField = document.querySelector('input[name="price_shown"]');
