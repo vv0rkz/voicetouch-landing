@@ -19,20 +19,35 @@
     if (window.gtag) gtag('event', name);
   }
 
-  // Маска телефона RU/KZ (обе страны +7): любой ввод → +7 (XXX) XXX-XX-XX
+  // Маска телефона RU/KZ (обе страны +7): любой ввод → +7 (XXX) XXX-XX-XX.
+  // Разделители добавляются только когда за ними есть цифра → Backspace не «залипает» на ) и -.
   function formatPhoneRuKz(raw) {
     let d = (raw || '').replace(/\D/g, '');
     if (d.charAt(0) === '8') d = '7' + d.slice(1);
     if (d && d.charAt(0) !== '7') d = '7' + d;
     d = d.slice(0, 11);
-    const rest = d.slice(1);
+    if (!d) return '';
+    const r = d.slice(1);
     let out = '+7';
-    if (rest.length > 0) out += ' (' + rest.slice(0, 3);
-    if (rest.length >= 3) out += ')';
-    if (rest.length > 3) out += ' ' + rest.slice(3, 6);
-    if (rest.length > 6) out += '-' + rest.slice(6, 8);
-    if (rest.length > 8) out += '-' + rest.slice(8, 10);
+    if (r.length > 0) out += ' (' + r.slice(0, 3);
+    if (r.length > 3) out += ') ' + r.slice(3, 6);
+    if (r.length > 6) out += '-' + r.slice(6, 8);
+    if (r.length > 8) out += '-' + r.slice(8, 10);
     return out;
+  }
+
+  // Проверка контакта по каналу (мягкая, чтобы отсеять явные опечатки)
+  function validateContact(channel, contact) {
+    const v = (contact || '').trim();
+    if (!v) return 'Укажите контакт, чтобы мы могли написать.';
+    if (channel === 'email') {
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v)) return 'Похоже, почта введена не полностью. Пример: mail@mail.com';
+    } else if (channel === 'whatsapp') {
+      if (v.replace(/\D/g, '').length !== 11) return 'Номер должен быть из 11 цифр: +7 и ещё 10.';
+    } else if (channel === 'telegram') {
+      if (!/^[a-zA-Z0-9_]{5,32}$/.test(v.replace(/^@+/, ''))) return 'Ник в Telegram — 5–32 символа: латиница, цифры, «_».';
+    }
+    return '';
   }
 
   // Готовая ссылка из канала + контакта: t.me / wa.me / mailto
@@ -63,27 +78,36 @@
       });
     });
 
-    // A/B цены: utm_content=price → показать блок цены; иначе скрыт (безопасный дефолт).
-    // Вариант пишется в скрытое поле price_shown → виден в заявке Formspree; в аналитике сегментируется по utm_content.
-    const priceVariant = (saved.utm_content || '').toLowerCase() === 'price' ? 'price' : 'noprice';
-    if (priceVariant === 'price') {
-      const pb = document.getElementById('price-block');
-      if (pb) pb.classList.remove('hidden');
-    }
+    // A/B цены: по умолчанию цена ПОКАЗАНА (базовая версия); скрывается только при utm_content=noprice.
+    // Вариант пишется в скрытое поле price_shown → виден в заявке; в аналитике сегментируется по utm_content.
+    const priceVariant = (saved.utm_content || '').toLowerCase() === 'noprice' ? 'noprice' : 'price';
+    const pb = document.getElementById('price-block');
+    if (pb && priceVariant === 'noprice') pb.classList.add('hidden');
     const psField = document.querySelector('input[name="price_shown"]');
     if (psField) psField.value = priceVariant;
 
     const input = document.querySelector('input[name="contact"]');
     const channelField = document.querySelector('input[name="channel"]');
     const linkField = document.querySelector('input[name="contact_link"]');
+    const errEl = document.getElementById('contact-error');
+    function clearError() { if (errEl) errEl.classList.add('hidden'); }
 
     // AJAX-отправка: цель успевает долететь, юзер видит «Спасибо» на русском вместо страницы Formspree
     const form = document.querySelector('form[action*="formspree"]');
     if (form) {
       form.addEventListener('submit', function (e) {
         e.preventDefault();
-        // готовая ссылка на контакт → скрытое поле (в заявке Formspree будет кликабельный t.me/wa.me/mailto)
-        if (linkField) linkField.value = buildContactLink(channelField ? channelField.value : '', input ? input.value : '');
+        const channel = channelField ? channelField.value : '';
+        // валидация контакта по выбранному каналу
+        const err = validateContact(channel, input ? input.value : '');
+        if (err) {
+          if (errEl) { errEl.textContent = err; errEl.classList.remove('hidden'); }
+          if (input) input.focus();
+          return;
+        }
+        clearError();
+        // готовая ссылка на контакт → скрытое поле (в заявке будет кликабельный t.me/wa.me/mailto)
+        if (linkField) linkField.value = buildContactLink(channel, input ? input.value : '');
         const btn = form.querySelector('button[type="submit"]');
         if (btn) { btn.disabled = true; btn.textContent = 'Отправляем…'; }
         fetch(form.action, {
@@ -125,14 +149,16 @@
       btns.forEach(function (b) {
         b.addEventListener('click', function () {
           if (input && b.dataset.channel !== channelField.value) input.value = '';
+          clearError();
           setChannel(b);
           if (input) input.focus();
         });
       });
-      // формат телефона на лету только в режиме tel (WhatsApp)
+      // формат телефона на лету только в режиме tel (WhatsApp) + скрытие ошибки при вводе
       if (input) {
         input.addEventListener('input', function () {
           if (currentMode === 'tel') input.value = formatPhoneRuKz(input.value);
+          clearError();
         });
       }
       if (btns[0]) setChannel(btns[0]);

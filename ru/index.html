@@ -110,33 +110,77 @@
     </div>
   </section>
 
-  <!-- Features -->
+  <!-- Comparison -->
   <section class="py-24 px-6 bg-zinc-950/60 border-y border-white/5">
-    <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      <div class="p-8 rounded-3xl bg-zinc-900/40 border border-white/5">
-        <h3 class="text-xl font-semibold mb-3">Говорите свободно</h3>
-        <p class="text-zinc-400 leading-relaxed">Без команд вроде «tap 7» — просто скажите, что нужно.</p>
+    <div class="max-w-3xl mx-auto">
+      <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-3 text-center">Чем отличается</h2>
+      <p class="text-zinc-400 text-center mb-10">Голосовое управление есть и у других — но не всё сразу.</p>
+      <div class="overflow-hidden rounded-2xl border border-white/10">
+        <table class="w-full text-left">
+          <thead>
+            <tr class="border-b border-white/10">
+              <th class="p-3 md:p-4 w-[40%]"></th>
+              <th class="p-2 md:p-4 bg-brand/10">
+                <div class="flex flex-col items-center gap-1.5">
+                  <span class="inline-flex w-7 h-7 rounded-lg bg-brand items-center justify-center"><svg viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 text-white"><path d="M12 14a3 3 0 0 0 3-3V5a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.92V21h2v-3.08A7 7 0 0 0 19 11h-2z"/></svg></span>
+                  <span class="text-xs font-semibold text-zinc-100">VoiceTouch</span>
+                </div>
+              </th>
+              <th class="p-2 md:p-4">
+                <div class="flex flex-col items-center gap-1.5">
+                  <span class="inline-flex w-7 h-7 rounded-lg items-center justify-center font-bold text-white text-sm" style="background:#FC3F1D">Я</span>
+                  <span class="text-xs font-medium text-zinc-400">Алиса</span>
+                </div>
+              </th>
+              <th class="p-2 md:p-4">
+                <div class="flex flex-col items-center gap-1.5">
+                  <span class="inline-flex w-7 h-7 rounded-full bg-white items-center justify-center font-bold text-sm" style="color:#4285F4">G</span>
+                  <span class="text-xs font-medium text-zinc-400 leading-tight text-center">Voice&nbsp;Access</span>
+                </div>
+              </th>
+            </tr>
+          </thead>
+          <tbody class="text-sm">
+            <tr class="border-t border-white/5">
+              <td class="p-3 md:p-4 text-zinc-300">Управляет любым приложением</td>
+              <td class="p-2 md:p-4 text-center bg-brand/5 text-emerald-400 font-semibold">✓</td>
+              <td class="p-2 md:p-4 text-center text-zinc-600">✗</td>
+              <td class="p-2 md:p-4 text-center text-emerald-400 font-semibold">✓</td>
+            </tr>
+            <tr class="border-t border-white/5">
+              <td class="p-3 md:p-4 text-zinc-300">Обычная речь, без заученных команд</td>
+              <td class="p-2 md:p-4 text-center bg-brand/5 text-emerald-400 font-semibold">✓</td>
+              <td class="p-2 md:p-4 text-center text-amber-400" title="частично">~</td>
+              <td class="p-2 md:p-4 text-center text-zinc-600">✗</td>
+            </tr>
+            <tr class="border-t border-white/5">
+              <td class="p-3 md:p-4 text-zinc-300">Работает офлайн</td>
+              <td class="p-2 md:p-4 text-center bg-brand/5 text-emerald-400 font-semibold">✓</td>
+              <td class="p-2 md:p-4 text-center text-zinc-600">✗</td>
+              <td class="p-2 md:p-4 text-center text-zinc-600">✗</td>
+            </tr>
+            <tr class="border-t border-white/5">
+              <td class="p-3 md:p-4 text-zinc-300">Данные остаются на телефоне</td>
+              <td class="p-2 md:p-4 text-center bg-brand/5 text-emerald-400 font-semibold">✓</td>
+              <td class="p-2 md:p-4 text-center text-zinc-600">✗</td>
+              <td class="p-2 md:p-4 text-center text-zinc-600">✗</td>
+            </tr>
+            <tr class="border-t border-white/5">
+              <td class="p-3 md:p-4 text-zinc-300">Русский язык</td>
+              <td class="p-2 md:p-4 text-center bg-brand/5 text-emerald-400 font-semibold">✓</td>
+              <td class="p-2 md:p-4 text-center text-emerald-400 font-semibold">✓</td>
+              <td class="p-2 md:p-4 text-center text-zinc-600">✗</td>
+            </tr>
+            <tr class="border-t border-white/5">
+              <td class="p-3 md:p-4 text-zinc-300">Заточен под моторные ограничения</td>
+              <td class="p-2 md:p-4 text-center bg-brand/5 text-emerald-400 font-semibold">✓</td>
+              <td class="p-2 md:p-4 text-center text-zinc-600">✗</td>
+              <td class="p-2 md:p-4 text-center text-emerald-400 font-semibold">✓</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
-      <div class="p-8 rounded-3xl bg-zinc-900/40 border border-white/5">
-        <h3 class="text-xl font-semibold mb-3">Делает за вас</h3>
-        <p class="text-zinc-400 leading-relaxed">Сам находит нужные кнопки и выполняет действия поверх любого приложения.</p>
-      </div>
-      <div class="p-8 rounded-3xl bg-zinc-900/40 border border-white/5">
-        <h3 class="text-xl font-semibold mb-3">Работает офлайн</h3>
-        <p class="text-zinc-400 leading-relaxed">Все модели — на устройстве. Ваш голос остаётся у вас, данные не уходят на сервер.</p>
-      </div>
-      <div class="p-8 rounded-3xl bg-zinc-900/40 border border-white/5">
-        <h3 class="text-xl font-semibold mb-3">Понимает вас</h3>
-        <p class="text-zinc-400 leading-relaxed">Русский и английский из коробки.</p>
-      </div>
-      <div class="p-8 rounded-3xl bg-zinc-900/40 border border-white/5">
-        <h3 class="text-xl font-semibold mb-3">Даёт независимость</h3>
-        <p class="text-zinc-400 leading-relaxed">Телефон снова под вашим контролем — без помощи со стороны.</p>
-      </div>
-      <div class="p-8 rounded-3xl bg-zinc-900/40 border border-white/5">
-        <h3 class="text-xl font-semibold mb-3">Для тех, кому трудно касаться</h3>
-        <p class="text-zinc-400 leading-relaxed">Тремор, артрит, последствия инсульта, занятые руки — экран больше не барьер.</p>
-      </div>
+      <p class="text-xs text-zinc-600 mt-3 text-center">По открытым данным на 2026 год. Алиса и Google Voice Access — товарные знаки владельцев.</p>
     </div>
   </section>
 
@@ -195,8 +239,8 @@
     <div class="max-w-xl mx-auto text-center">
       <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-4">Ранний доступ</h2>
       <p class="text-zinc-400 mb-8">Оставьте контакт — напишем, когда откроем ранний доступ.</p>
-      <!-- Price block (A/B): показывается только при utm_content=price (см. utm.js) -->
-      <div id="price-block" class="hidden mb-8 rounded-2xl border border-white/10 bg-zinc-900/50 p-5">
+      <!-- Price block (A/B): по умолчанию показан; скрывается только при utm_content=noprice (см. utm.js) -->
+      <div id="price-block" class="mb-8 rounded-2xl border border-white/10 bg-zinc-900/50 p-5">
         <div class="text-sm text-zinc-400">После запуска</div>
         <div class="mt-1 text-2xl font-bold text-zinc-100">249&nbsp;₽<span class="text-base font-normal text-zinc-500">/мес</span> <span class="text-zinc-600">·</span> 1990&nbsp;₽<span class="text-base font-normal text-zinc-500">/год</span></div>
         <div class="mt-3 inline-flex items-center gap-2 text-sm text-emerald-400"><span aria-hidden="true">★</span><span>Ранним пользователям — бесплатный доступ на старте и скидка навсегда</span></div>
@@ -233,28 +277,8 @@
             <input type="text" name="contact" required placeholder="@username" inputmode="text" class="flex-1 min-w-0 rounded-xl bg-zinc-900/80 border border-white/10 px-4 py-3 text-zinc-100 placeholder-zinc-600 focus:border-brand/60 focus:outline-none" />
           </div>
           <input type="hidden" name="channel" value="telegram" />
+          <p id="contact-error" class="hidden mt-2 text-sm text-red-400"></p>
         </div>
-        <fieldset class="block">
-          <legend class="text-sm text-zinc-400">Что было бы для вас важнее всего? <span class="text-zinc-600">— необязательно, можно несколько</span></legend>
-          <div class="mt-2 grid gap-2">
-            <label class="flex items-center gap-3 rounded-xl bg-zinc-900/80 border border-white/10 px-4 py-3 cursor-pointer hover:border-white/20">
-              <input type="checkbox" name="priority" value="hands_free" class="w-4 h-4 accent-brand shrink-0" />
-              <span class="text-sm text-zinc-200">Управлять телефоном голосом, не касаясь экрана</span>
-            </label>
-            <label class="flex items-center gap-3 rounded-xl bg-zinc-900/80 border border-white/10 px-4 py-3 cursor-pointer hover:border-white/20">
-              <input type="checkbox" name="priority" value="offline_privacy" class="w-4 h-4 accent-brand shrink-0" />
-              <span class="text-sm text-zinc-200">Работает без интернета, данные остаются на телефоне</span>
-            </label>
-            <label class="flex items-center gap-3 rounded-xl bg-zinc-900/80 border border-white/10 px-4 py-3 cursor-pointer hover:border-white/20">
-              <input type="checkbox" name="priority" value="understands" class="w-4 h-4 accent-brand shrink-0" />
-              <span class="text-sm text-zinc-200">Понимает обычную речь — без заученных команд</span>
-            </label>
-            <label class="flex items-center gap-3 rounded-xl bg-zinc-900/80 border border-white/10 px-4 py-3 cursor-pointer hover:border-white/20">
-              <input type="checkbox" name="priority" value="for_relative" class="w-4 h-4 accent-brand shrink-0" />
-              <span class="text-sm text-zinc-200">Нужно для близкого человека</span>
-            </label>
-          </div>
-        </fieldset>
         <button type="submit" class="w-full inline-flex items-center justify-center rounded-full px-8 py-4 text-base font-medium bg-brand text-white hover:bg-brand/90 transition-all shadow-[0_0_40px_-10px_#6366f1]">Получить ранний доступ</button>
       </form>
       <p class="mt-4 text-xs text-zinc-500">Оставляя контакт, вы соглашаетесь на обработку для связи по заявке (152-ФЗ).</p>
